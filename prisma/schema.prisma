@@ -15,6 +15,7 @@ model User {
   nome String
   email String @unique
   senha String
+  idade String
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
 }
@@ -23,4 +24,5 @@ model Filme {
   id String @id @default(uuid()) 
   nomeFilme String
   genero String
+  nota String
 }

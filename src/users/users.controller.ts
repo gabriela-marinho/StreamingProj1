@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUsersDto } from './dto/create-users.dto';
-@Controller('users')
+@Controller('user')
 export class UsersController {
   constructor(private service: UsersService) {}
 

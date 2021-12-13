@@ -7,7 +7,7 @@ export class UsersService {
   constructor(private db: PrismaService) {}
 
   async createUser(data: CreateUsersDto) {
-    delete data.confirmacaoSenha;
+    delete data.idade;
     await this.db.user.create({ data });
   }
 }
