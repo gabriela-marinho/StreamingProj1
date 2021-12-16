@@ -2,6 +2,7 @@ import {
   Injectable,
   ConflictException,
   UnauthorizedException,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -44,6 +45,40 @@ export class UsersService {
       data: dadosUsuario,
       where: { id: id },
     });
+    delete user.senha;
     return user;
+  }
+
+  async findMany(): Promise<any[]> {
+    const user = await this.db.user.findMany();
+    const userNoPass = user.map(({ senha, ...resto }) => resto);
+    return userNoPass;
+  }
+
+  async findUnique(id: string): Promise<User> {
+    const user = await this.db.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new NotFoundException('Usuario nao encontrado');
+    }
+    delete user.senha;
+    return user;
+  }
+
+  async delete(id: string): Promise<{ message: string }> {
+    const user = await this.db.user.findUnique({
+      where: { id },
+    });
+    if (!user) {
+      throw new NotFoundException('Usuario nao encontrado');
+    } else {
+      await this.db.user.delete({
+        where: { id },
+      });
+    }
+
+    return { message: 'ID encontrada e excluído' };
   }
 }
