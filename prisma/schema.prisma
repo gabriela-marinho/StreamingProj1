@@ -11,18 +11,24 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid()) 
-  nome String
-  email String @unique
-  senha String
+  id               String   @id @default(uuid())
+  nome             String
+  email            String   @unique
+  senha            String
   confirmacaoSenha String
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  linkImagem       String
+  createdAt        DateTime @default(now())
+  updateAt         DateTime @updatedAt
 }
 
 model Filme {
-  id String @id @default(uuid()) 
-  nomeFilme String
-  genero String
-  nota String
+  id         String   @id @default(uuid())
+  nomeFilme  String   @unique
+  descricao  String
+  genero     String
+  ator       String
+  produtora  String
+  linkImagem String
+  createdAt  DateTime @default(now())
+  updateAt   DateTime @updatedAt
 }
