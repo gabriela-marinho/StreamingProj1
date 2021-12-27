@@ -27,13 +27,18 @@ export class UsersService {
     if (userExists) {
       throw new ConflictException('email ja cadastrado,use outro!');
     }
-    const saltos = 10;
-    const hashSenha = await bcrypt.hash(dadosUsuario.senha, saltos);
+    // por algum motivo precisaei colocar uma constante com a confirmacao de senha tbm linha 30 a 41.
+    const hashSenha = await bcrypt.hash(dadosUsuario.senha, 10);
+    const hashConfirmacaoSenha = await bcrypt.hash(
+      dadosUsuario.confirmacaoSenha,
+      10,
+    );
     delete dadosUsuario.confirmacaoSenha;
     const user = await this.db.user.create({
       data: {
         ...dadosUsuario,
         senha: hashSenha,
+        confirmacaoSenha: hashConfirmacaoSenha,
       },
     });
     delete user.senha;
