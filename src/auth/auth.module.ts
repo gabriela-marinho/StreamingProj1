@@ -5,12 +5,13 @@ import { PrismaService } from 'src/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
+import { jwtConstants } from './jwt.constants';
 @Module({
   // estou pegando um modulo externo e importando no modulo de autenticacao
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: 'jdosfhdfqhdfphfoq',
+      secret: jwtConstants.secret,
       signOptions: {
         expiresIn: '30m',
       },
@@ -18,6 +19,5 @@ import { PassportModule } from '@nestjs/passport';
   ],
   controllers: [AuthController],
   providers: [AuthService, PrismaService, JwtStrategy],
-  exports: [JwtStrategy, PassportModule],
 })
 export class AuthModule {}

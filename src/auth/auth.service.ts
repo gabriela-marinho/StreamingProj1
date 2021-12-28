@@ -1,12 +1,10 @@
 import {
-  ConflictException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CredentialsDto } from './dto/credentials.dto';
-import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
@@ -32,7 +30,7 @@ export class AuthService {
 
     if (senhaValida) {
       const payload = {
-        id: dadosExistem.id,
+        email: dadosExistem.email,
       };
         // vou liberar o token, assinar o payload(ingresso) com o id do usuario
       const token = await this.jwt.sign(payload);

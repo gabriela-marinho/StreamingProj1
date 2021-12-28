@@ -26,12 +26,12 @@ export class UsersController {
   update(@Param('id') id: string, @Body() data: UpdateUsersDto): Promise<User> {
     return this.service.update(id, data);
   }
-
+  @UseGuards(AuthGuard())
   @Get('findMany')
   findMany(): Promise<any[]> {
     return this.service.findMany();
   }
-
+  @UseGuards(AuthGuard())
   @Get('findUnique/:id')
   findUnique(@Param('id') id: string): Promise<User> {
     return this.service.findUnique(id);
